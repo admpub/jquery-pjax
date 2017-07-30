@@ -1,3 +1,8 @@
+## 一些改进
+本库会将pjax加载内容中的js文件移动到文档的`<head>`标签中,并且对于已经存在于head中的js文件会跳过加载，这对于类库类js文件自然是没有什么问题的，但是对于非类库类js就会出错。
+可以通过以下方法避免这一行为：
+1. 允许转移到head，但强制重新加载： 在`<script>`标签中设置属性`context`值为`forcedload`。例如`<script src="init.js" context="forcedload"></script>`
+2. 禁止转移到head：在`<script>`标签中设置属性`context`值为`inline`。例如`<script src="init.js" context="inline"></script>`
 
 ## 用法
 

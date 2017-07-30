@@ -713,7 +713,7 @@ function extractContainer(data, xhr, options) {
     obj.contents.find('title').remove()
 
     // Gather all script[src] elements
-    obj.scripts = findAll(obj.contents, 'script[src]').remove()
+    obj.scripts = findAll(obj.contents, 'script[src][context!=inline]').remove()
     obj.contents = obj.contents.not(obj.scripts)
   }
 
@@ -744,8 +744,8 @@ function executeScriptTags(scripts) {
     //if (matchedScripts.length) return
     if (matchedScripts.length) {
       
-      //设置了 forceload 属性值时，总是重新载入（一般用于含有执行入口的文件）
-      if($(this).attr('forceload')){
+      //设置了 forcedload 属性值时，总是重新载入（一般用于含有执行入口的文件）
+      if($(this).attr('context')=='forcedload'){
         var url=$(this).attr('src')
         url=url.indexOf('?')==-1?'?':'&'
         url+='__reload__='+Math.random()
