@@ -741,7 +741,19 @@ function executeScriptTags(scripts) {
     var matchedScripts = existingScripts.filter(function() {
       return this.src === src
     })
-    if (matchedScripts.length) return
+    //if (matchedScripts.length) return
+    if (matchedScripts.length) {
+      
+      //设置了 forceload 属性值时，总是重新载入（一般用于含有执行入口的文件）
+      if($(this).attr('forceload')){
+        var url=$(this).attr('src')
+        url=url.indexOf('?')==-1?'?':'&'
+        url+='__reload__='+Math.random()
+        matchedScripts.attr('src',url)
+      }
+      
+      return
+    }
 
     var script = document.createElement('script')
     var type = $(this).attr('type')
